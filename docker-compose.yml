@@ -1,0 +1,59 @@
+version: "3"
+
+services:
+    php:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        ports:
+            - "8080:8000"
+        volumes:
+            - .:/var/www/html
+        networks:
+            - laravel
+
+    mysql:
+        image: mysql:8.0
+        platform: linux/x86_64
+        environment:
+            MYSQL_DATABASE: laravel
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
+            MYSQL_ROOT_PASSWORD: rootpassword
+        ports:
+            - "3307:3307"
+        volumes:
+            - mysql_data:/var/lib/mysql
+            - .:/var/www/html
+        networks:
+            - laravel
+
+    phpmyadmin:
+        image: amd64/phpmyadmin
+        environment:
+            PMA_HOST: mysql
+            PMA_PORT: 3306
+            MYSQL_ROOT_PASSWORD: rootpassword
+        ports:
+            - "8089:80"
+        depends_on:
+            - mysql
+        networks:
+            - laravel
+
+    # node:
+    #   tty: true
+    #   build:
+    #     context: .
+    #     dockerfile: docker/Dockerfile.node
+    #   command: bash -c "npm run watch"
+    #   volumes:
+    #     - .:/var/www/html
+    #   networks:
+    #     - laravel
+
+volumes:
+    mysql_data:
+
+networks:
+    laravel:
