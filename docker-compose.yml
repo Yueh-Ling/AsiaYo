@@ -28,18 +28,18 @@ services:
         networks:
             - laravel
 
-    phpmyadmin:
-        image: amd64/phpmyadmin
-        environment:
-            PMA_HOST: mysql
-            PMA_PORT: 3306
-            MYSQL_ROOT_PASSWORD: rootpassword
-        ports:
-            - "8089:80"
-        depends_on:
-            - mysql
-        networks:
-            - laravel
+    # phpmyadmin:
+    #     image: amd64/phpmyadmin
+    #     environment:
+    #         PMA_HOST: mysql
+    #         PMA_PORT: 3306
+    #         MYSQL_ROOT_PASSWORD: rootpassword
+    #     ports:
+    #         - "8089:80"
+    #     depends_on:
+    #         - mysql
+    #     networks:
+    #         - laravel
 
     # node:
     #   tty: true

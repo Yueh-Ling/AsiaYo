@@ -33,7 +33,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Install Laravel dependencies
 ENV COMPOSER_ALLOW_SUPERUSER 1
-RUN composer install --no-scripts --no-autoloader
+RUN composer install --no-scripts
 
 # Generate application key
 RUN php artisan env:decrypt --key=base64:voIs0vIdk5HGMarLLeryXdur65LgdaOEkNfS1ujEdpg=
