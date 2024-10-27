@@ -36,6 +36,7 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN composer install --no-scripts --no-autoloader
 
 # Generate application key
+RUN php artisan env:decrypt --key=base64:voIs0vIdk5HGMarLLeryXdur65LgdaOEkNfS1ujEdpg=
 RUN php artisan key:generate
 
 # Create storage directory and set permissions
