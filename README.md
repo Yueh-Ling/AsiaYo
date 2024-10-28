@@ -24,3 +24,4 @@ This project is designed to check and transform the data.
 2. Navigate into the project directory: `cd asiaYo`
 3. Build the enviroment: `docker-compose up`
 4. Copy .env.example to .env: `cp .env.example .env`
+5. Run test: `vendor/bin/pest`
