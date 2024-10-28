@@ -9,9 +9,6 @@ FROM php:8.3
 # Set the working directory in the container
 WORKDIR /var/www/html
 
-# Copy the current directory contents into the container at /var/www/html
-COPY . /var/www/html
-
 # Install any needed packages specified in the requirements.txt
 RUN apt-get update && apt-get install -y \ 
     libzip-dev \
@@ -31,11 +28,20 @@ RUN docker-php-ext-install pdo pdo_mysql
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Copy composer.json and composer.lock
+COPY composer.json composer.lock ./
+
 # Install Laravel dependencies
 ENV COMPOSER_ALLOW_SUPERUSER 1
-RUN composer install --no-scripts
+RUN composer install --no-scripts --no-autoloader
+
+# Copy the rest of the application code
+COPY . .
 
 # Generate application key
+RUN composer dump-autoload --optimize
+
+# Decrypt .env file
 RUN php artisan env:decrypt --key=base64:voIs0vIdk5HGMarLLeryXdur65LgdaOEkNfS1ujEdpg=
 RUN php artisan key:generate
 

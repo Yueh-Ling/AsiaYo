@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\Alphablank;
+use App\Rules\AlphaBlank;
 use App\Rules\CapitalizeWord;
 
 class StoreOrderRequest extends AsioYoRequest
@@ -18,7 +18,7 @@ class StoreOrderRequest extends AsioYoRequest
             'id' => ['required'],
             'name' => [
                 'required',
-                new Alphablank(),
+                new AlphaBlank(),
                 new CapitalizeWord()
             ],
             'address' => ['required'],
